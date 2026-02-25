@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.socialmedia.controller.NewsFeedController"
+            stylesheets="@styles.css"
+            styleClass="root-pane">
+
+    <children>
+        <VBox spacing="15" layoutX="20" layoutY="20" prefWidth="560" prefHeight="750">
+
+            <Label text="News Feed" styleClass="title-label"/>
+
+            <TextArea fx:id="postContentField" prefWidth="540" prefHeight="100" promptText="What's on your mind?" styleClass="input-field"/>
+
+            <HBox spacing="10">
+                <ComboBox fx:id="privacyComboBox" prefWidth="200"/>
+                <Button text="Create Post" onAction="#handleCreatePost" styleClass="primary-button"/>
+                <Button text="Upload Image" onAction="#handleUploadImage" styleClass="secondary-button"/>
+            </HBox>
+
+            <ListView fx:id="postsListView" prefWidth="540" prefHeight="300" onMouseClicked="#handlePostSelection"/>
+
+            <HBox spacing="10">
+                <Button text="Like/Unlike" onAction="#handleLike" styleClass="primary-button"/>
+                <Label fx:id="likesCountLabel" text="Likes: 0"/>
+            </HBox>
+
+            <TextArea fx:id="commentField" prefWidth="540" prefHeight="60" promptText="Write a comment..." styleClass="input-field"/>
+            <Button text="Add Comment" onAction="#handleAddComment" styleClass="secondary-button"/>
+            <ListView fx:id="commentsListView" prefWidth="540" prefHeight="200"/>
+
+            <Button text="Back to Menu" onAction="#goToMenu" styleClass="secondary-button"/>
+            <Label fx:id="messageLabel" styleClass="error-label"/>
+        </VBox>
+    </children>
+</AnchorPane>

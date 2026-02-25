@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.socialmedia.controller.SearchController"
+            stylesheets="@styles.css">
+    <children>
+        <Label text="Search" layoutX="20" layoutY="20" style="-fx-font-size: 20px;"/>
+
+        <TextField fx:id="searchField" layoutX="20" layoutY="60" prefWidth="300" promptText="Enter keyword..."/>
+
+        <Button text="Search Users" layoutX="330" layoutY="60" onAction="#handleSearchUsers"/>
+        <Button text="Search Posts" layoutX="430" layoutY="60" onAction="#handleSearchPosts"/>
+
+        <ListView fx:id="resultsListView" layoutX="20" layoutY="100" prefWidth="500" prefHeight="300"/>
+
+        <Button text="Back to Menu" layoutX="20" layoutY="420" onAction="#goToMenu"/>
+
+        <Label fx:id="messageLabel" layoutX="20" layoutY="460" textFill="red"/>
+    </children>
+</AnchorPane>

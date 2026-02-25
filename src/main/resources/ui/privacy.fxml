@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.socialmedia.controller.PrivacyController"
+            stylesheets="@styles.css">
+    <children>
+        <Label text="Privacy Settings" layoutX="20" layoutY="20" style="-fx-font-size: 20px;"/>
+
+        <ComboBox fx:id="privacyComboBox" layoutX="20" layoutY="60" prefWidth="200"/>
+
+        <Button text="Save" layoutX="240" layoutY="60" onAction="#handleSave"/>
+
+        <Button text="Back to Menu" layoutX="20" layoutY="120" onAction="#goToMenu"/>
+
+        <Label fx:id="messageLabel" layoutX="20" layoutY="160" textFill="red"/>
+    </children>
+</AnchorPane>

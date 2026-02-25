@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.socialmedia.controller.FriendRequestController"
+            stylesheets="@styles.css">
+    <children>
+        <Label text="Friend Requests" layoutX="20" layoutY="20" style="-fx-font-size: 20px;"/>
+
+        <ListView fx:id="requestsListView" layoutX="20" layoutY="60" prefWidth="400" prefHeight="200"/>
+
+        <TextField fx:id="receiverField" layoutX="20" layoutY="240" promptText="Enter receiver ID"/>
+
+        <Button text="Accept" layoutX="20" layoutY="280" onAction="#handleAccept"/>
+        <Button text="Reject" layoutX="100" layoutY="280" onAction="#handleReject"/>
+        <Button text="Send Request" layoutX="180" layoutY="280" onAction="#handleSendRequest"/>
+        <Button text="Back to Menu" layoutX="300" layoutY="280" onAction="#goToMenu"/>
+
+        <Label fx:id="messageLabel" layoutX="20" layoutY="320" textFill="red"/>
+    </children>
+</AnchorPane>

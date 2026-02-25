@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.socialmedia.controller.RegisterController"
+            stylesheets="@styles.css">
+    <children>
+        <Label text="Register" layoutX="20" layoutY="20" style="-fx-font-size: 20px;"/>
+
+        <TextField fx:id="nameField" layoutX="20" layoutY="60" prefWidth="250" promptText="Name"/>
+        <TextField fx:id="emailField" layoutX="20" layoutY="100" prefWidth="250" promptText="Email"/>
+        <PasswordField fx:id="passwordField" layoutX="20" layoutY="140" prefWidth="250" promptText="Password"/>
+
+        <Button text="Register" layoutX="20" layoutY="180" onAction="#handleRegister"/>
+        <Button text="Go to Login" layoutX="120" layoutY="180" onAction="#goToLogin"/>
+
+        <Label fx:id="messageLabel" layoutX="20" layoutY="220" textFill="green"/>
+    </children>
+</AnchorPane>

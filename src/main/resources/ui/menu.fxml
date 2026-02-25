@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.socialmedia.controller.MenuController"
+            stylesheets="@styles.css">
+    <children>
+        <Label text="Main Menu" layoutX="20" layoutY="20" style="-fx-font-size: 20px;"/>
+
+        <Button fx:id="profileButton" text="Profile" layoutX="20" layoutY="60" onAction="#goToProfile"/>
+        <Button fx:id="newsFeedButton" text="News Feed" layoutX="20" layoutY="100" onAction="#goToNewsFeed"/>
+        <Button fx:id="notificationsButton" text="Notifications" layoutX="20" layoutY="140" onAction="#goToNotifications"/>
+        <Button fx:id="friendRequestsButton" text="Friend Requests" layoutX="20" layoutY="180" onAction="#goToFriendRequests"/>
+        <Button fx:id="searchButton" text="Search" layoutX="20" layoutY="220" onAction="#goToSearch"/>
+        <Button fx:id="privacyButton" text="Privacy" layoutX="20" layoutY="260" onAction="#goToPrivacy"/>
+        <Button fx:id="logoutButton" text="Logout" layoutX="20" layoutY="300" onAction="#goToLogin"/>
+    </children>
+</AnchorPane>
+
