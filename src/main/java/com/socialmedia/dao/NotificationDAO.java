@@ -11,19 +11,24 @@ public class NotificationDAO {
 
     public List<Notification> getNotificationsByUserId(int userId) throws SQLException {
         List<Notification> notifications = new ArrayList<>();
-        String sql = "SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC";
+        String sql = "SELECT n.*, u.name AS sender_name " +
+                "FROM notifications n " +
+                "JOIN users u ON n.user_id = u.id " +
+                "WHERE n.user_id = ? ORDER BY n.created_at DESC";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                notifications.add(new Notification(
+                Notification notification = new Notification(
                         rs.getInt("id"),
                         rs.getInt("user_id"),
                         rs.getString("message"),
                         rs.getBoolean("is_read"),
                         rs.getTimestamp("created_at")
-                ));
+                );
+                notification.setSenderName(rs.getString("sender_name"));
+                notifications.add(notification);
             }
         }
         return notifications;
@@ -48,23 +53,23 @@ public class NotificationDAO {
         }
     }
 
-    public void addLikeNotification(int postOwnerId, int likerId) throws SQLException {
-        String message = "User " + likerId + " liked your post.";
+    public void addLikeNotification(int postOwnerId, int likerId, String likerName) throws SQLException {
+        String message = likerName + " liked your post.";
         addNotification(postOwnerId, message);
     }
 
-    public void addCommentNotification(int postOwnerId, int commenterId) throws SQLException {
-        String message = "User " + commenterId + " commented on your post.";
+    public void addCommentNotification(int postOwnerId, int commenterId, String commenterName) throws SQLException {
+        String message = commenterName + " commented on your post.";
         addNotification(postOwnerId, message);
     }
 
-    public void addFriendRequestNotification(int receiverId, int senderId) throws SQLException {
-        String message = "User " + senderId + " sent you a friend request.";
+    public void addFriendRequestNotification(int receiverId, int senderId, String senderName) throws SQLException {
+        String message = senderName + " sent you a friend request.";
         addNotification(receiverId, message);
     }
 
-    public void addFriendAcceptedNotification(int senderId, int receiverId) throws SQLException {
-        String message = "User " + receiverId + " accepted your friend request.";
+    public void addFriendAcceptedNotification(int senderId, int receiverId, String receiverName) throws SQLException {
+        String message = receiverName + " accepted your friend request.";
         addNotification(senderId, message);
     }
 }

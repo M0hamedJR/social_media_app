@@ -35,12 +35,13 @@ public class NotificationsController {
                     if (empty || notification == null) {
                         setText(null);
                     } else {
+                        String displayText = notification.toString();
                         if (notification.isRead()) {
-                            setText("✓ " + notification.getMessage());
-                            setStyle("-fx-text-fill: green;"); //
+                            setText("✓ " + displayText);
+                            setStyle("-fx-text-fill: green;");
                         } else {
-                            setText("• " + notification.getMessage());
-                            setStyle("-fx-text-fill: red; -fx-font-weight: bold;"); //
+                            setText("• " + displayText);
+                            setStyle("-fx-text-fill: red; -fx-font-weight: bold;");
                         }
                     }
                 }
@@ -58,7 +59,7 @@ public class NotificationsController {
         if (selected != null) {
             try {
                 notificationDAO.markAsRead(selected.getId());
-                loadNotifications(); //
+                loadNotifications();
                 messageLabel.setText("Notification marked as read!");
             } catch (SQLException e) {
                 messageLabel.setText("Error marking notification: " + e.getMessage());

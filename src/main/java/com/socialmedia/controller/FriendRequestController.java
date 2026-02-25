@@ -3,6 +3,7 @@ package com.socialmedia.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.socialmedia.dao.FriendRequestDAO;
+import com.socialmedia.dao.UserDAO;
 import com.socialmedia.model.FriendRequest;
 import com.socialmedia.util.Session;
 
@@ -16,6 +17,7 @@ public class FriendRequestController {
     @FXML private Label messageLabel;
 
     private FriendRequestDAO friendRequestDAO = new FriendRequestDAO();
+    private UserDAO userDAO = new UserDAO();
     private int currentUserId = Session.getCurrentUserId();
 
     @FXML
@@ -38,7 +40,6 @@ public class FriendRequestController {
         if (request != null) {
             try {
                 friendRequestDAO.updateRequestStatus(request.getId(), "ACCEPTED");
-                // أضف الاتنين في جدول friends
                 friendRequestDAO.addFriend(request.getSenderId(), request.getReceiverId());
                 messageLabel.setText("Request accepted! Friend added.");
                 loadRequests();
@@ -64,13 +65,24 @@ public class FriendRequestController {
 
     @FXML
     private void handleSendRequest() {
+        String receiverUsername = receiverField.getText();
+
+        if (receiverUsername == null || receiverUsername.trim().isEmpty()) {
+            messageLabel.setText("Please enter a username!");
+            return;
+        }
+
         try {
-            int receiverId = Integer.parseInt(receiverField.getText());
+            int receiverId = userDAO.getUserIdByUsername(receiverUsername);
+
+            if (receiverId == -1) {
+                messageLabel.setText("User not found!");
+                return;
+            }
+
             friendRequestDAO.sendRequest(currentUserId, receiverId);
-            messageLabel.setText("Request sent to user " + receiverId + "!");
+            messageLabel.setText("Request sent to " + receiverUsername + "!");
             loadRequests();
-        } catch (NumberFormatException e) {
-            messageLabel.setText("Please enter a valid user ID!");
         } catch (SQLException e) {
             messageLabel.setText("Error sending request: " + e.getMessage());
         }

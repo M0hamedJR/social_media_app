@@ -8,6 +8,7 @@ public class Comment {
     private int postId;
     private String content;
     private Timestamp createdAt;
+    private String username;
 
     public Comment(int id, int userId, int postId, String content, Timestamp createdAt) {
         this.id = id;
@@ -22,4 +23,15 @@ public class Comment {
     public int getPostId() { return postId; }
     public String getContent() { return content; }
     public Timestamp getCreatedAt() { return createdAt; }
+
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+
+    @Override
+    public String toString() {
+        if (username != null && !username.isEmpty()) {
+            return username + ": " + content;
+        }
+        return "User " + userId + ": " + content;
+    }
 }

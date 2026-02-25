@@ -11,7 +11,7 @@
 
         <ListView fx:id="requestsListView" layoutX="20" layoutY="60" prefWidth="400" prefHeight="200"/>
 
-        <TextField fx:id="receiverField" layoutX="20" layoutY="240" promptText="Enter receiver ID"/>
+        <TextField fx:id="receiverField" layoutX="20" layoutY="240" promptText="Enter ِA Name"/>
 
         <Button text="Accept" layoutX="20" layoutY="280" onAction="#handleAccept"/>
         <Button text="Reject" layoutX="100" layoutY="280" onAction="#handleReject"/>

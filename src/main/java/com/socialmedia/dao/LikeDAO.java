@@ -7,6 +7,7 @@ public class LikeDAO {
 
     private NotificationDAO notificationDAO = new NotificationDAO();
     private PostDAO postDAO = new PostDAO();
+    private UserDAO userDAO = new UserDAO(); //
 
     public void addLike(int userId, int postId) throws SQLException {
         String sql = "INSERT INTO likes (user_id, post_id) VALUES (?, ?)";
@@ -18,8 +19,9 @@ public class LikeDAO {
         }
 
         int postOwnerId = postDAO.getPostOwnerId(postId);
-        if (postOwnerId != userId) { //
-            notificationDAO.addLikeNotification(postOwnerId, userId);
+        if (postOwnerId != userId) {
+            String likerName = userDAO.getUserById(userId).getName();
+            notificationDAO.addLikeNotification(postOwnerId, userId, likerName);
         }
     }
 

@@ -84,10 +84,8 @@ public class NewsFeedController {
                 if (empty || post == null) {
                     setGraphic(null);
                 } else {
-                    // اسم المستخدم
                     nameLabel.setText(post.getUserName());
 
-                    // صورة البروفايل (لو موجودة)
                     if (post.getProfileImage() != null && !post.getProfileImage().isEmpty()) {
                         File profileFile = new File(post.getProfileImage());
                         if (profileFile.exists()) {
@@ -201,7 +199,7 @@ public class NewsFeedController {
             commentsListView.getItems().clear();
             List<Comment> comments = commentDAO.getCommentsByPost(currentPostId);
             for (Comment c : comments) {
-                commentsListView.getItems().add("User " + c.getUserId() + ": " + c.getContent());
+                commentsListView.getItems().add(c.toString());
             }
         } catch (SQLException e) {
             messageLabel.setText("Error loading comments: " + e.getMessage());

@@ -9,12 +9,22 @@ public class FriendRequest {
     private String status;
     private Timestamp createdAt;
 
+    private String senderName;
+
     public FriendRequest(int id, int senderId, int receiverId, String status, Timestamp createdAt) {
         this.id = id;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.status = status;
         this.createdAt = createdAt;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 
     public int getId() { return id; }
@@ -25,6 +35,9 @@ public class FriendRequest {
 
     @Override
     public String toString() {
+        if (senderName != null && !senderName.isEmpty()) {
+            return "From " + senderName + " [" + status + "]";
+        }
         return "From User " + senderId + " [" + status + "]";
     }
 }

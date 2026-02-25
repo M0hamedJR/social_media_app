@@ -113,10 +113,23 @@ public class UserDAO {
                         rs.getString("password"),
                         rs.getString("created_at"),
                         rs.getString("profile_image"),
-                        rs.getString("bio") // u
+                        rs.getString("bio")
                 );
             }
         }
         return null;
+    }
+
+    public int getUserIdByUsername(String username) throws SQLException {
+        String sql = "SELECT id FROM users WHERE name = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        }
+        return -1;
     }
 }

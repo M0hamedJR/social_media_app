@@ -9,6 +9,9 @@ public class Notification {
     private boolean isRead;
     private Timestamp createdAt;
 
+    // الجديد: اسم المرسل
+    private String senderName;
+
     public Notification(int id, int userId, String message, boolean isRead, Timestamp createdAt) {
         this.id = id;
         this.userId = userId;
@@ -23,8 +26,14 @@ public class Notification {
     public boolean isRead() { return isRead; }
     public Timestamp getCreatedAt() { return createdAt; }
 
+    public String getSenderName() { return senderName; }
+    public void setSenderName(String senderName) { this.senderName = senderName; }
+
     @Override
     public String toString() {
-        return message + (isRead ? " (Read)" : " (Unread)");
+        if (senderName != null && !senderName.isEmpty()) {
+            return senderName + ": " + message + (isRead ? " (Read)" : " (Unread)");
+        }
+        return "User " + userId + ": " + message + (isRead ? " (Read)" : " (Unread)");
     }
 }

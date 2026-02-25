@@ -11,19 +11,24 @@ public class FriendRequestDAO {
 
     public List<FriendRequest> getRequestsByReceiverId(int receiverId) throws SQLException {
         List<FriendRequest> requests = new ArrayList<>();
-        String sql = "SELECT * FROM friend_requests WHERE receiver_id = ? AND status = 'PENDING'";
+        String sql = "SELECT fr.*, u.name AS sender_name " +
+                "FROM friend_requests fr " +
+                "JOIN users u ON fr.sender_id = u.id " +
+                "WHERE fr.receiver_id = ? AND fr.status = 'PENDING'";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, receiverId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                requests.add(new FriendRequest(
+                FriendRequest request = new FriendRequest(
                         rs.getInt("id"),
                         rs.getInt("sender_id"),
                         rs.getInt("receiver_id"),
                         rs.getString("status"),
                         rs.getTimestamp("created_at")
-                ));
+                );
+                request.setSenderName(rs.getString("sender_name"));
+                requests.add(request);
             }
         }
         return requests;
