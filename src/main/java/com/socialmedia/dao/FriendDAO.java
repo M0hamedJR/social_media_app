@@ -19,6 +19,29 @@ public class FriendDAO {
         }
     }
 
+    public List<String> getFriendNames(int loggedInUserId) throws SQLException {
+        List<String> friendNames = new ArrayList<>();
+
+        String sql = "SELECT u.name " +
+                "FROM friends f " +
+                "JOIN users u ON (u.id = f.user1_id OR u.id = f.user2_id) " +
+                "WHERE (f.user1_id = ? OR f.user2_id = ?) AND u.id <> ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, loggedInUserId);
+            stmt.setInt(2, loggedInUserId);
+            stmt.setInt(3, loggedInUserId);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                friendNames.add(rs.getString("name"));
+            }
+        }
+        return friendNames;
+    }
+
     public List<Friend> getFriendsByUserId(int userId) throws SQLException {
         List<Friend> friends = new ArrayList<>();
         String sql = "SELECT * FROM friends WHERE user1_id = ? OR user2_id = ?";
